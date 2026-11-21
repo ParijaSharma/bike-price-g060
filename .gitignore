@@ -4,4 +4,3 @@ __pycache__/
 .env
 mlruns/
 .ipynb_checkpoints/
-/data/*.csv

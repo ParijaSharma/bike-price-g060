@@ -1,6 +1,4 @@
-
 import pandas as pd
-
 
 def check_units(df, group_col="city_zone", threshold=9):
     numeric_cols = df.select_dtypes(include="number").columns
@@ -39,7 +37,6 @@ def check_units(df, group_col="city_zone", threshold=9):
         "group_value": None,
         "factor": None
     }
-
 
 if __name__ == "__main__":
     df = pd.read_csv("data/raw/train.csv")

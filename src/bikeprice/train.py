@@ -1,6 +1,6 @@
 import hashlib
 from pathlib import Path
-
+import joblib
 import mlflow
 import mlflow.sklearn
 import pandas as pd
@@ -101,6 +101,7 @@ def train_models(data_path="data/raw/train.csv"):
             mlflow.sklearn.log_model(
                 pipeline,
                 artifact_path="model",
+                serialization_format="cloudpickle",
             )
 
             print("Run ID:", run.info.run_id)
@@ -111,6 +112,11 @@ def train_models(data_path="data/raw/train.csv"):
             if mae < best_mae:
                 best_mae = mae
                 best_run_id = run.info.run_id
+
+                models_dir = Path("models")
+                models_dir.mkdir(exist_ok=True)
+
+                joblib.dump(pipeline, models_dir / "model.joblib")
 
     print("\\nBest run ID:", best_run_id)
     print("Best validation MAE:", best_mae)
